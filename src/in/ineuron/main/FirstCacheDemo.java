@@ -5,10 +5,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import in.ineuron.model.BankAccount;
+import in.ineuron.model.InsurancePolicy;
 import in.ineuron.util.HibernateUtil;
 
-public class ObjectCreationTimestampTest {
+public class FirstCacheDemo {	
+
 	public static void main(String[] args) {
 		Session session=null;
 		boolean flag=false;
@@ -24,14 +25,12 @@ public class ObjectCreationTimestampTest {
 			}
 			if(transaction!=null)
 			{
-				BankAccount bank = new BankAccount();
-				bank.setHolderName("Kalpana");
-				bank.setBalance(3312.90);
-				bank.setType("Primary");
-				idValue = (Long)session.save(bank);
-				System.out.println(session.save(bank).getClass().getName());
-				System.out.println("Generated id value is " + idValue);
-				System.out.println("Generated versionCount is "+ bank.getVersion());
+				InsurancePolicy policy = new InsurancePolicy();
+				policy.setCompany("LIC");
+				policy.setPolicyName("Bhim Barosa");
+				policy.setPolicyType("Health");
+				policy.setTenure(12);
+				idValue = (Long)session.save(policy);  //Record in l1-Cache
      			flag = true;
 			}
 		} catch (HibernateException e) {

@@ -17,7 +17,6 @@ public class HibernateUtil {
 	try {
 		cfg =new Configuration();
 		cfg.configure();
-		System.out.println("generated properties "+ cfg.getProperties());
 		sessionFactory = cfg.buildSessionFactory();
 	} catch (HibernateException e) {
 		e.printStackTrace();

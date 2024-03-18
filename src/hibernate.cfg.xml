@@ -12,6 +12,6 @@
 <property name="hibernate.show_sql">true</property>
 <property name="hibernate.format_sql">true</property>
 <property name="hibernate.hbm2ddl.auto">update</property>
-<mapping class="in.ineuron.model.BankAccount"></mapping>
+<mapping class="in.ineuron.model.InsurancePolicy"></mapping>
 </session-factory>
 </hibernate-configuration>
