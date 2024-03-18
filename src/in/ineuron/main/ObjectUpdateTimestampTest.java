@@ -4,31 +4,29 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import in.ineuron.model.Customer;
+import in.ineuron.model.BankAccount;
 import in.ineuron.util.HibernateUtil;
 
-public class VersionModify {
+public class ObjectUpdateTimestampTest {
 	public static void main(String[] args) {
 		Session session = null;
 		Transaction transaction = null;
 		boolean flag = false;
-		Customer customer = null;
-		Integer cid = 1;
+		BankAccount bank = null;
+		Long id = 3L;
 		
 		try {
 			session= HibernateUtil.getSession();
 			if(session!=null) {
 				transaction = session.beginTransaction();
-				customer = session.get(Customer.class, cid);
-				if(customer!=null) {
-					customer.setCname("Tasleem");
-					customer.setCallerTune("Pachtaogi");
+				bank = session.get(BankAccount.class, id);
+				if(bank!=null) {
+					bank.setBalance(bank.getBalance()+12909);
 					flag = true;
-					System.err.println("old versionCount is "+ customer.getVersionCount());
-					// save or saveOrUpdate() methods are not used as EntityToDB update is Synchronized/ are in sync no need to externally use methods
+					System.err.println("old versionCount is "+ bank.getVersion());
 				}
 				else {
-					System.out.println("Customer details not found for the given id "+ cid);
+					System.out.println("BankAccount details not found for the given id "+ id);
 				}
 			}
 		} catch (HibernateException e) {
@@ -39,11 +37,15 @@ public class VersionModify {
 		} finally {
 			if(flag) {
 				transaction.commit();
-				System.out.println("Object is modified for ::" + customer.getVersionCount() + " times");
+				System.out.println("Object is modified for ::" + bank.getVersion() + " times");
+				System.out.println("Account modified on :: "+ bank.getLastUpdateTime());
+				System.out.println("Account opened on :: "+ bank.getOpeningDate());
 			}
 			else {
 				transaction.rollback();
 			System.out.println("Object not modified");
+			HibernateUtil.closeSession(session);
+
 			}
 		}
 	}

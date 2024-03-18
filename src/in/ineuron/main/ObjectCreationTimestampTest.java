@@ -1,24 +1,20 @@
 package in.ineuron.main;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import in.ineuron.model.Customer;
+import in.ineuron.model.BankAccount;
 import in.ineuron.util.HibernateUtil;
 
-public class VersionInsertionTest {
+public class ObjectCreationTimestampTest {
 	public static void main(String[] args) {
 		Session session=null;
 		boolean flag=false;
 		SessionFactory sessionFactory = null;
 		Transaction transaction = null;
-		Integer idValue = null;
+		Long idValue = null;
 		
 		try {
 			session = HibernateUtil.getSession();
@@ -28,14 +24,14 @@ public class VersionInsertionTest {
 			}
 			if(transaction!=null)
 			{
-				Customer customer = new Customer();
-				customer.setCname("Mohit");
-				customer.setMobileNo(8904321282L);
-				customer.setCallerTune("Vaaste");
-				idValue = (Integer)session.save(customer);
-				System.out.println(session.save(customer).getClass().getName());
+				BankAccount bank = new BankAccount();
+				bank.setHolderName("Kalpana");
+				bank.setBalance(3312.90);
+				bank.setType("Primary");
+				idValue = (Long)session.save(bank);
+				System.out.println(session.save(bank).getClass().getName());
 				System.out.println("Generated id value is " + idValue);
-				System.out.println("Generated versionCount is "+ customer.getVersionCount());
+				System.out.println("Generated versionCount is "+ bank.getVersion());
      			flag = true;
 			}
 		} catch (HibernateException e) {
