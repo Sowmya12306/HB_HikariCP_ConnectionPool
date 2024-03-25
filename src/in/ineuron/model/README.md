@@ -1,4 +1,5 @@
-Messages displayed in console after sucessful integration of HikariCP for Hibernate Connection Pooling
+Messages displayed in console after successful integration of HikariCP for Hibernate Connection Pooling
+--------------------------------------------------------------------------------------------------------
 
 
 INFO: HHH000130: Instantiating explicit connection provider: org.hibernate.hikaricp.internal.HikariCPConnectionProvider
